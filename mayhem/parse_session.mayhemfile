@@ -1,0 +1,7 @@
+project: webrtc
+target: parse-session
+
+cmds:
+  - cmd: /parse_session
+  - cmd: /parse_session_no_inst @@
+    libfuzzer: false
