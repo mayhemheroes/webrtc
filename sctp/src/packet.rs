@@ -81,6 +81,11 @@ impl fmt::Display for Packet {
 
 pub(crate) const PACKET_HEADER_SIZE: usize = 12;
 
+#[cfg(fuzzing)]
+pub fn fuzz_packet_unmarshal(raw: &Bytes) {
+    _ = Packet::unmarshal(raw);
+}
+
 impl Packet {
     pub(crate) fn unmarshal(raw: &Bytes) -> Result<Self> {
         if raw.len() < PACKET_HEADER_SIZE {
