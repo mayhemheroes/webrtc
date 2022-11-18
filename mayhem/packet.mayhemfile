@@ -1,0 +1,7 @@
+project: webrtc
+target: packet
+
+cmds:
+  - cmd: /packet
+  - cmd: /packet_no_inst @@
+    libfuzzer: false

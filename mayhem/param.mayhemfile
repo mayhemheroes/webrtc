@@ -1,0 +1,7 @@
+project: webrtc
+target: param
+
+cmds:
+  - cmd: /param
+  - cmd: /param_no_inst @@
+    libfuzzer: false
