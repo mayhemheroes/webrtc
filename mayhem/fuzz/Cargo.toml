@@ -1,0 +1,48 @@
+[package]
+name = "webrtc-mayhem-fuzz"
+version = "0.0.0"
+authors = ["Automatically generated"]
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+
+# The fuzzed code moved into the `rtc` git submodule (rtc-sctp / rtc-sdp) after the
+# upstream monorepo merge. Depend on those crates by path — purely additive, upstream
+# untouched. `bench` exposes rtc-sctp's internal `fuzzing` module (packet/param
+# marshal-unmarshal shims) without needing the `--cfg fuzzing` build flag.
+[dependencies.rtc-sctp]
+path = "../../rtc/rtc-sctp"
+features = ["bench"]
+
+[dependencies.rtc-sdp]
+path = "../../rtc/rtc-sdp"
+
+# Prevent this from interfering with the outer webrtc / rtc workspaces.
+[workspace]
+members = ["."]
+
+[profile.release]
+debug = 1
+
+[[bin]]
+name = "packet"
+path = "fuzz_targets/packet.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "param"
+path = "fuzz_targets/param.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "parse_session"
+path = "fuzz_targets/parse_session.rs"
+test = false
+doc = false

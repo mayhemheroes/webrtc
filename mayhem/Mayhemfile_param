@@ -1,0 +1,10 @@
+project: webrtc
+target: param
+
+cmds:
+  - cmd: /mayhem/param
+    libfuzzer: true
+
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/param/testsuite
